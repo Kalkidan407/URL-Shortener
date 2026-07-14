@@ -1,8 +1,5 @@
-
 # URL-Shortener 
-
-
-A production-oriented URL Shortener built with Spring Boot to practice backend engineering, system design, Docker, caching, and scalable software architecture.
+ production-oriented URL Shortener built with Spring Boot to practice backend engineering, system design, Docker, caching, and scalable software architecture.
 
 ## Goals
 
