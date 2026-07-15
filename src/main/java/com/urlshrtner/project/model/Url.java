@@ -16,7 +16,7 @@ public class Url{
     @Column(nullable = false, unique = true, length = 10)
     private String shortCode;
 
-    @Column(nullable = false)
+    @Column
     private Long clickCount;
 
     @Column(nullable = false)
