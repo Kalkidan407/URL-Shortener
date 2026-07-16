@@ -1,14 +1,22 @@
 package com.urlshrtner.project.model;
 
+import java.util.UUID;
+
 import jakarta.persistence.*;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 
 @Entity
-public class Url{
+@Data
+@Setter
+@Getter
+public class URLs{
     
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private String id;
+    private UUID id;
 
     @Column(nullable = false, length = 2048)
     private String originalUrl;
