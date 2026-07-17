@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface UrlRepository extends JpaRepository<URLs, UUID> {
     boolean existsByShortCode(String shortCode);
     Optional<URLs> findByShortCode(String shortCode);
+    
 
 
 }

@@ -51,5 +51,16 @@ public class UrlService {
       return repository.findByShortCode(shortCode).orElseThrow();
     } 
 
+    public String redirect(String shortCode){
+      URLs url = repository.findByShortCode(shortCode)
+        .orElseThrow();
+        url.setClickCount(url.getClickCount() +1);
+        repository.save(url);
+       return "redirect:" + url.getOriginalUrl();
+
+    }
+
+    
+
 
  }
