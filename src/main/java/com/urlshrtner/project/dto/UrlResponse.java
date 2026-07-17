@@ -9,8 +9,7 @@ import lombok.Setter;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
-@Getter
+
 public class UrlResponse {
 
     private String originalUrl;

@@ -47,5 +47,9 @@ public class UrlService {
 
       }
 
+     public URLs getByShortCode(String shortCode){
+      return repository.findByShortCode(shortCode).orElseThrow();
+    } 
+
 
  }
