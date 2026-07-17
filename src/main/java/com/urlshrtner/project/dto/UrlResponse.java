@@ -16,6 +16,7 @@ public class UrlResponse {
     private String shortCode;
     private Long clickCount;
     private java.time.Instant createdAt;
+    private String siteName;
     // private java.time.Instant updatedAt;
     // private java.time.Instant expiresAt;
    

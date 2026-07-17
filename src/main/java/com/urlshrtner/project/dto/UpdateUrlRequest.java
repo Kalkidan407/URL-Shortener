@@ -1,0 +1,15 @@
+package com.urlshrtner.project.dto;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class UpdateUrlRequest {
+
+    private String shortCode;
+    private String originalUrl;
+    private String  siteName;
+}

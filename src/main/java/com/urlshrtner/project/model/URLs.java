@@ -21,6 +21,9 @@ public class URLs{
     @Column(nullable = false, length = 2048)
     private String originalUrl;
 
+    @Column(nullable = false)
+    private String siteName;
+
     @Column(nullable = false, unique = true, length = 10)
     private String shortCode;
 
@@ -37,5 +40,5 @@ public class URLs{
     private java.time.Instant expiresAt;
 
     @Column(nullable = false)
-    private Boolean deleted;
+    private Boolean isDeleted;
 }
