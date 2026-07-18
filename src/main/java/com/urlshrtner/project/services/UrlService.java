@@ -21,7 +21,6 @@ public class UrlService {
     private final  UrlRepository repository;
     private final UrlMapper mapper;
     private final ShortCodeGenerator generate;
-    private final UpdateUrlRequest updateUrlRequest;
     
      String shortCode;
 
@@ -60,7 +59,6 @@ public class UrlService {
        url.setClickCount(url.getClickCount() +1);
        repository.save(url);
        return  url.getOriginalUrl();
-
     }
 
     public void deleteById(UUID id){
@@ -68,7 +66,6 @@ public class UrlService {
          url.setIsDeleted(true);
         repository.save(url);
     }
-
 
     public URLs updateById(UUID id, UpdateUrlRequest request){
          URLs url = repository.findById(id).orElseThrow();
@@ -78,8 +75,6 @@ public class UrlService {
          return repository.save(url);
 
     }
-
-    
 
 
  }

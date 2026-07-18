@@ -10,32 +10,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.urlshrtner.project.dto.UpdateUrlRequest;
-
+import com.urlshrtner.project.dto.UrlRequest;
+import com.urlshrtner.project.dto.UrlResponse;
 import com.urlshrtner.project.services.UrlService;
+
+import lombok.RequiredArgsConstructor;
 
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-
+import org.springframework.web.bind.annotation.PostMapping;
 
 
 @RestController
+@RequiredArgsConstructor() 
 @RequestMapping("/api/urls")
 public class UrlController {
   
-     private UrlService service;
-    
-
+     private final UrlService service;
 
       @GetMapping("/url/{id}")
       public String getUrlById(@PathVariable UUID id) {
           return "get by id " + service.getShoerCodeById(id);
       }
-      
-     @GetMapping("/{shortCode}")
-     public String redirect(@PathVariable String shortCode) {
-     return "redirect:" + service.redirect(shortCode);
-     }
 
+      @PostMapping("/post")
+      public UrlResponse createShortUrl(@RequestBody UrlRequest request) {
+          return service.createShortURL(request);
+      }
+      
       @DeleteMapping("/{id}")
      public String deleteById(@PathVariable UUID id) {
       service.deleteById(id);
@@ -49,5 +51,4 @@ public class UrlController {
           return "updated successfully";
       }
      
-    
 }
