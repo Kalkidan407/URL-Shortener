@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateUrlRequest {
 
-    private String shortCode;
+   
     private String originalUrl;
     private String  siteName;
 }
