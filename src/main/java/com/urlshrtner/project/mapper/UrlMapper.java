@@ -10,7 +10,6 @@ import com.urlshrtner.project.model.URLs;
 
 @Mapper(componentModel = "spring")
 public interface UrlMapper {
-
     URLs toEntity(UrlRequest request);
     UrlResponse toResponse(URLs url);
     

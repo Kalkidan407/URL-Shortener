@@ -2,9 +2,8 @@ package com.urlshrtner.project.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 
 @Data
 @AllArgsConstructor
@@ -17,8 +16,7 @@ public class UrlResponse {
     private Long clickCount;
     private java.time.Instant createdAt;
     private String siteName;
-    // private java.time.Instant updatedAt;
-    // private java.time.Instant expiresAt;
+    
    
     
 }

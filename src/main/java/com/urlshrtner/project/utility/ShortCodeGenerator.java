@@ -16,7 +16,7 @@ public class ShortCodeGenerator {
 
      Random random = new Random();
 
-      for (int i = 0; i < length; i++) {
+      for (int i=0; i<length; i++) {
 
         int index = random.nextInt(characters.length());
 
