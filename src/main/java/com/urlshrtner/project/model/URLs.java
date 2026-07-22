@@ -1,6 +1,10 @@
 package com.urlshrtner.project.model;
 
+import java.time.Instant;
 import java.util.UUID;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -27,18 +31,20 @@ public class URLs{
     @Column(nullable = false, unique = true, length = 10)
     private String shortCode;
 
-    @Column
+    @Column()
     private Long clickCount;
 
-    @Column(nullable = false)
-    private java.time.Instant createdAt;
+    @CreationTimestamp
+    @Column(nullable = false, updatable =  false)
+    private Instant createdAt;
 
+    @UpdateTimestamp
     @Column(nullable = false)
-    private java.time.Instant updatedAt;
+    private Instant updatedAt;
 
     @Column
     private java.time.Instant expiresAt;
 
     @Column(nullable = false)
-    private Boolean isDeleted;
+    private Boolean deleted;
 }

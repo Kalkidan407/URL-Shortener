@@ -12,6 +12,11 @@ public class UrlRequest {
   
     @NotBlank
     private String originalUrl;
+
+    @NotBlank
+    private String siteName;
+
+
     
     
 }

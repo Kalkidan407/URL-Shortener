@@ -2,6 +2,10 @@ package com.urlshrtner.project.utility;
 
 import java.util.Random;
 
+import org.springframework.stereotype.Component;
+
+
+@Component
 public class ShortCodeGenerator {
 
 

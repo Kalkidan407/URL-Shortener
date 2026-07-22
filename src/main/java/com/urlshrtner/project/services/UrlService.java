@@ -25,14 +25,24 @@ public class UrlService {
      String shortCode;
 
      public UrlResponse createShortURL(UrlRequest request ){
+
        URLs url = mapper.toEntity(request);
+
        do{
           shortCode  = generate.generate();
        } while(repository.existsByShortCode(shortCode));
 
        url.setShortCode(shortCode);
-       repository.save(url);
-       return mapper.toResponse(url);
+       url.setSiteName(request.getSiteName());
+  
+url.setDeleted(false);
+url.setClickCount(0L);
+
+  URLs savedUrl = repository.save(url);
+
+return mapper.toResponse(savedUrl);
+
+      
 
       }
 
@@ -40,8 +50,9 @@ public class UrlService {
            URLs url = repository.findById(id)
                      .orElseThrow(); 
         return  new UrlResponse(
-            url.getShortCode(),
+          url.getId(),
             url.getOriginalUrl(),
+            url.getShortCode(),
             url.getClickCount(),
             url.getCreatedAt(),
             url.getSiteName()
@@ -63,7 +74,7 @@ public class UrlService {
 
     public void deleteById(UUID id){
          URLs url = repository.findById(id).orElseThrow();
-         url.setIsDeleted(true);
+         url.setDeleted(true);
         repository.save(url);
     }
 
