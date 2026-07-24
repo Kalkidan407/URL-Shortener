@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.urlshrtner.project.dto.UpdateUrlRequest;
 import com.urlshrtner.project.dto.UrlRequest;
 import com.urlshrtner.project.dto.UrlResponse;
+import com.urlshrtner.project.exception.IdNotFoundException;
 import com.urlshrtner.project.exception.UrlNotFoundException;
 import com.urlshrtner.project.mapper.UrlMapper;
 import com.urlshrtner.project.model.URLs;
@@ -26,30 +27,24 @@ public class UrlService {
      String shortCode;
 
      public UrlResponse createShortURL(UrlRequest request ){
-
        URLs url = mapper.toEntity(request);
-
        do{
           shortCode  = generate.generate();
        } while(repository.existsByShortCode(shortCode));
 
-       url.setShortCode(shortCode);
-       url.setSiteName(request.getSiteName());
-  
-url.setDeleted(false);
-url.setClickCount(0L);
-
-  URLs savedUrl = repository.save(url);
-
-return mapper.toResponse(savedUrl);
-
-      
-
-      }
+        url.setShortCode(shortCode);
+        url.setSiteName(request.getSiteName());
+        url.setDeleted(false);
+        url.setClickCount(0L);
+         URLs savedUrl = repository.save(url);
+      return mapper.toResponse(savedUrl);
+     }
 
       public UrlResponse  getShoerCodeById(UUID id){
            URLs url = repository.findById(id)
-                     .orElseThrow(); 
+                     .orElseThrow(
+                       () ->  new IdNotFoundException("id '" +id+ "'not found")
+                     ); 
         return  new UrlResponse(
           url.getId(),
             url.getOriginalUrl(),
@@ -63,7 +58,7 @@ return mapper.toResponse(savedUrl);
 
      public URLs getByShortCode(String shortCode){
       return repository.findByShortCode(shortCode).orElseThrow(
-         () -> new UrlNotFoundException("The short code  '" + shortCode + "'' not found")
+         () -> new UrlNotFoundException("short code  '" + shortCode + "'' did't not found")
       );
     } 
 
@@ -72,7 +67,7 @@ return mapper.toResponse(savedUrl);
         .orElseThrow(
            () -> new UrlNotFoundException(  " The shortcode  '" + shortCode + "' don't exist")
         );
-       url.setClickCount(url.getClickCount() +1);
+       url.setClickCount(url.getClickCount()+1);
        repository.save(url);
        return  url.getOriginalUrl();
     }

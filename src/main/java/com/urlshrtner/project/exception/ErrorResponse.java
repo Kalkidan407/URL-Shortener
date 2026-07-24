@@ -22,7 +22,6 @@ public class ErrorResponse {
     
     private int status;
     
-    
     private String message;
     
     private String requestPath;
@@ -30,10 +29,3 @@ public class ErrorResponse {
 
 
 
-// ErrorResponse errorResponse = ErrorResponse.builder()
-//         .timestamp(LocalDateTime.now())
-//         .status(HttpStatus.NOT_FOUND.value())
-//         .error(HttpStatus.NOT_FOUND.getReasonPhrase())
-//         .message(exception.getMessage())
-//         .requestPath(request.getRequestURI())
-//         .build();
