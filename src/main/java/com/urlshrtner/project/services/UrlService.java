@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.urlshrtner.project.dto.UpdateUrlRequest;
 import com.urlshrtner.project.dto.UrlRequest;
 import com.urlshrtner.project.dto.UrlResponse;
+import com.urlshrtner.project.exception.UrlNotFoundException;
 import com.urlshrtner.project.mapper.UrlMapper;
 import com.urlshrtner.project.model.URLs;
 import com.urlshrtner.project.repositories.UrlRepository;
@@ -61,12 +62,16 @@ return mapper.toResponse(savedUrl);
       }
 
      public URLs getByShortCode(String shortCode){
-      return repository.findByShortCode(shortCode).orElseThrow();
+      return repository.findByShortCode(shortCode).orElseThrow(
+         () -> new UrlNotFoundException("The short code  '" + shortCode + "'' not found")
+      );
     } 
 
     public String redirect(String shortCode){
       URLs url = repository.findByShortCode(shortCode)
-        .orElseThrow();
+        .orElseThrow(
+           () -> new UrlNotFoundException(  " The shortcode  '" + shortCode + "' don't exist")
+        );
        url.setClickCount(url.getClickCount() +1);
        repository.save(url);
        return  url.getOriginalUrl();
