@@ -16,10 +16,3 @@
 - Docker
 - Docker Compose
 
-## Documentation
-
-- Requirements
-- System Design
-- API Design
-- Database Design
-- Architecture Decisions
