@@ -43,7 +43,7 @@ public class UrlService {
       public UrlResponse  getShoerCodeById(UUID id){
            URLs url = repository.findById(id)
                      .orElseThrow(
-                       () ->  new IdNotFoundException("id '" +id+ "'not found")
+                       () ->  new IdNotFoundException("id '" +id+ " ' not found")
                      ); 
         return  new UrlResponse(
           url.getId(),
@@ -58,14 +58,14 @@ public class UrlService {
 
      public URLs getByShortCode(String shortCode){
       return repository.findByShortCode(shortCode).orElseThrow(
-         () -> new UrlNotFoundException("short code  '" + shortCode + "'' did't not found")
+         () -> new UrlNotFoundException("short code  '" + shortCode + " ' did't not found")
       );
     } 
 
     public String redirect(String shortCode){
       URLs url = repository.findByShortCode(shortCode)
         .orElseThrow(
-           () -> new UrlNotFoundException(  " The shortcode  '" + shortCode + "' don't exist")
+           () -> new UrlNotFoundException(  " The shortcode  ' " + shortCode + " ' don't exist")
         );
        url.setClickCount(url.getClickCount()+1);
        repository.save(url);
@@ -73,13 +73,18 @@ public class UrlService {
     }
 
     public void deleteById(UUID id){
-         URLs url = repository.findById(id).orElseThrow();
+         URLs url = repository.findById(id).orElseThrow(
+                       () ->  new IdNotFoundException("id ' " +id+ " ' not found")
+         );
          url.setDeleted(true);
         repository.save(url);
     }
 
     public URLs updateById(UUID id, UpdateUrlRequest request){
-         URLs url = repository.findById(id).orElseThrow();
+         URLs url = repository.findById(id).orElseThrow(
+                       () ->  new IdNotFoundException("id '" +id+ "'not found")
+
+         );
           url.setOriginalUrl(request.getOriginalUrl());
            url.setSiteName(request.getSiteName());
 
