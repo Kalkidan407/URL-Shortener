@@ -36,4 +36,28 @@ class UrlServiceTest {
     @InjectMocks
     private UrlService service;
 
+   @Test
+    void shouldReturnOriginalUrlWhenShortCodeExists(){
+        
+        URLs url = new URLs();
+        url.setShortCode("JHS7Vr");
+        url.setClickCount(0L);
+        url.setOriginalUrl("https://leetcode.com/u/Kalkidan-Kelemework/");
+
+        when(repository.findByShortCode("JHS7Vr"))
+            .thenReturn(Optional.of(url));
+
+
+     String result = service.redirect("JHS7Vr");
+    
+    assertEquals(1L, url.getClickCount());
+
+    assertEquals("https://leetcode.com/u/Kalkidan-Kelemework/", result);
+
+    verify(repository).save(url);
+
+    }
+
+  
+
 }
