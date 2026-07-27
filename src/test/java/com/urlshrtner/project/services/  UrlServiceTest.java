@@ -38,7 +38,7 @@ class UrlServiceTest {
 
    @Test
     void shouldReturnOriginalUrlWhenShortCodeExists(){
-        
+
         URLs url = new URLs();
         url.setShortCode("JHS7Vr");
         url.setClickCount(0L);
@@ -57,6 +57,17 @@ class UrlServiceTest {
     verify(repository).save(url);
 
     }
+
+    @Test
+void shouldThrowUrlNotFoundExceptionWhenShortCodeDoesNotExist() {
+    when(repository.findByShortCode("abc123"))
+            .thenReturn(Optional.empty());
+    assertThrows(
+            UrlNotFoundException.class,
+            () -> service.redirect("abc123")
+    );
+    verify(repository, never()).save(any());
+}
 
   
 
