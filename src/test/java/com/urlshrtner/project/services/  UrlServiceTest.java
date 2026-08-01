@@ -94,13 +94,12 @@ void shouldIncreaseClickCountWhenRedirect(){
 @Test
 void shouldCreateShortUrlSuccessfully() {
 
-       URLs url = new URLs();
-       UrlRequest request = new UrlRequest();
-       UrlResponse response = new UrlResponse();
+     URLs url = new URLs();
+     UrlRequest request = new UrlRequest();
+     UrlResponse response = new UrlResponse();
 
          request.setOriginalUrl("https://leetcode.com/u/Kalkidan-Kelemework/");
          response.setShortCode("JHS7Vr");
-
         url.setShortCode("JHS7Vr");
         url.setOriginalUrl("https://leetcode.com/u/Kalkidan-Kelemework/");
 
@@ -109,15 +108,27 @@ void shouldCreateShortUrlSuccessfully() {
      when(repository.save(url)).thenReturn(url);
      when(mapper.toResponse(url)).thenReturn(response);
 
-    UrlResponse  result = service.createShortURL(request);
+     UrlResponse  result = service.createShortURL(request);
 
      assertEquals("JHS7Vr", result.getShortCode());
-   
-
      verify(generate).generate();
      verify(repository).save(url);
      verify(mapper).toEntity(request);
      verify(mapper).toResponse(url);
+}
+
+@Test
+void shouldThrowExceptionWhenMapperFailsToConvertRequest(){
+   
+    UrlRequest request = new UrlRequest();
+
+    when(mapper.toEntity(request))
+        .thenReturn(null);
+assertThrows(
+    IllegalStateException.class,
+    () -> service.createShortURL(request)
+);
+        
 
 
 
