@@ -40,7 +40,6 @@ class UrlServiceTest {
 
    @Test
     void shouldReturnOriginalUrlWhenShortCodeExists(){
-
         URLs url = new URLs();
         url.setShortCode("JHS7Vr");
         url.setClickCount(0L);
@@ -50,44 +49,34 @@ class UrlServiceTest {
             .thenReturn(Optional.of(url));
 
       String result = service.redirect("JHS7Vr");
-    
-    assertEquals(1L, url.getClickCount());  //checks the state of the object
-    assertEquals("https://leetcode.com/u/Kalkidan-Kelemework/", result);
-    verify(repository).save(url); // this checks the behavior or interaction
+     assertEquals(1L, url.getClickCount());  //checks the state of the object
+     assertEquals("https://leetcode.com/u/Kalkidan-Kelemework/", result);
+     verify(repository).save(url); // this checks the behavior or interaction
 
     }
 
     @Test
 void shouldThrowUrlNotFoundExceptionWhenShortCodeDoesNotExist() {
-
     when(repository.findByShortCode("abc123"))
             .thenReturn(Optional.empty());
-
     assertThrows(
         UrlNotFoundException.class,
             () -> service.redirect("abc123")
     );
-
     verify(repository, never()).save(any());
 }
 
 
 @Test
 void shouldIncreaseClickCountWhenRedirect(){
-
     URLs url = new URLs();
-
     url.setShortCode("abc123");
     url.setOriginalUrl("https://google.com");
     url.setClickCount(5L);
-
-
     when(repository.findByShortCode("abc123"))
             .thenReturn(Optional.of(url));
-
     service.redirect("abc123");
     assertEquals(6L, url.getClickCount());
-
     verify(repository).save(url);
 }
 
@@ -124,19 +113,13 @@ void shouldThrowExceptionWhenMapperFailsToConvertRequest(){
 
     when(mapper.toEntity(request))
         .thenReturn(null);
+        
 assertThrows(
     IllegalStateException.class,
     () -> service.createShortURL(request)
 );
         
-
-
-
 }
-
-
-
-
 
 
 }

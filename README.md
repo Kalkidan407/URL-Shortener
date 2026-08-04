@@ -16,3 +16,14 @@
 - Docker
 - Docker Compose
 
+## folder structure
+  ------- config
+  -------  controllers
+  ------  services
+  ------ mapper
+  -----   dtos
+  -----  repositories
+  ------ model
+  ----- utility
+  ----- exception
+  ----- security
