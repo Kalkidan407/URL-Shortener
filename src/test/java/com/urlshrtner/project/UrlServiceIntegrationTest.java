@@ -1,11 +1,13 @@
 package com.urlshrtner.project;
 
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.urlshrtner.project.dto.UrlRequest;
 import com.urlshrtner.project.dto.UrlResponse;
@@ -14,7 +16,8 @@ import com.urlshrtner.project.repositories.UrlRepository;
 import com.urlshrtner.project.services.UrlService;
 
 @SpringBootTest
-public class UrlServiceIntegrationTest {
+@ActiveProfiles("test")
+class UrlServiceIntegrationTest {
 
    @Autowired
     private UrlService service;
@@ -23,6 +26,40 @@ public class UrlServiceIntegrationTest {
     private UrlRepository repository;
 
 
+    @Test
+void testDatabaseConnection(){
+
+    long count = repository.count();
+
+    System.out.println("URL count: " + count);
+}
+
+@Test
+void shouldCreateShortUrl() {
+
+    UrlRequest request = new UrlRequest();
+
+    request.setOriginalUrl("https://google.com");
+    request.setSiteName("Google");
+
+
+    UrlResponse response = service.createShortURL(request);
+
+
+    assertNotNull(response.getId());
+    assertNotNull(response.getShortCode());
+
+
+    URLs savedUrl = repository.findById(response.getId())
+            .orElseThrow();
+
+
+    assertEquals(
+        "https://google.com",
+        savedUrl.getOriginalUrl()
+    );
+
+}
  
     
 }
