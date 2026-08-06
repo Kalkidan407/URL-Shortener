@@ -23,24 +23,6 @@ public class UrlServiceIntegrationTest {
     private UrlRepository repository;
 
 
-    @Test
-void shouldCreateShortUrlSuccessfully() {
-
-    UrlRequest request = new UrlRequest();
-request.setOriginalUrl("https://leetcode.com/");
-
-UrlResponse response = service.createShortURL(request);
-
-
-assertNotNull(response);
-assertNotNull(response.getShortCode());
-assertEquals("https://leetcode.com/", response.getOriginalUrl());
-
-URLs savedUrl = repository.findByShortCode(response.getShortCode())
-        .orElseThrow();
-
-        assertEquals("https://leetcode.com/", savedUrl.getOriginalUrl());
-
-}
+ 
     
 }

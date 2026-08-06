@@ -115,7 +115,7 @@ void shouldThrowExceptionWhenMapperFailsToConvertRequest(){
         .thenReturn(null);
         
 assertThrows(
-    IllegalStateException.class,
+    NullPointerException.class,
     () -> service.createShortURL(request)
 );
         

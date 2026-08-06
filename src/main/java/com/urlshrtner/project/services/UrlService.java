@@ -1,6 +1,7 @@
 package com.urlshrtner.project.services;
 
 
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -28,6 +29,12 @@ public class UrlService {
 
      public UrlResponse createShortURL(UrlRequest request ){
        URLs url = mapper.toEntity(request);
+
+       Optional<URLs> existing = repository.findByOriginalUrl(request.getOriginalUrl());
+        if(existing.isPresent()){
+          return  mapper.toResponse(existing.get());
+        }
+
        do{
           shortCode  = generate.generate();
        } while(repository.existsByShortCode(shortCode));
@@ -36,6 +43,7 @@ public class UrlService {
         url.setSiteName(request.getSiteName());
         url.setDeleted(false);
         url.setClickCount(0L);
+        
          URLs savedUrl = repository.save(url);
       return mapper.toResponse(savedUrl);
      }
@@ -45,14 +53,10 @@ public class UrlService {
                      .orElseThrow(
                        () ->  new IdNotFoundException("id '" +id+ " ' not found")
                      ); 
-        return  new UrlResponse(
-          url.getId(),
-            url.getOriginalUrl(),
-            url.getShortCode(),
-            url.getClickCount(),
-            url.getCreatedAt(),
-            url.getSiteName()
-        );
+
+                     UrlResponse response = mapper.toResponse(url);
+                     response.setExists(true);
+        return response;
 
       }
 
@@ -65,11 +69,12 @@ public class UrlService {
     public String redirect(String shortCode){
       URLs url = repository.findByShortCode(shortCode)
         .orElseThrow(
-           () -> new UrlNotFoundException(  " The shortcode  ' " + shortCode + " ' don't exist")
+           () -> new UrlNotFoundException( " The shortcode  ' " + shortCode + " ' don't exist")
         );
        url.setClickCount(url.getClickCount()+1);
        repository.save(url);
        return  url.getOriginalUrl();
+
     }
 
     public void deleteById(UUID id){

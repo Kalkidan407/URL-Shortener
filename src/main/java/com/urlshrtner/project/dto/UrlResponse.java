@@ -19,7 +19,10 @@ public class UrlResponse {
     private Long clickCount;
     private java.time.Instant createdAt;
     private String siteName;
+    private boolean exists ;
     
    
     
 }
+
+
