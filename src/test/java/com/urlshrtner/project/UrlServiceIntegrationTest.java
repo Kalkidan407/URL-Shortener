@@ -26,35 +26,22 @@ class UrlServiceIntegrationTest {
     private UrlRepository repository;
 
 
-    @Test
-void testDatabaseConnection(){
-
-    long count = repository.count();
-
-    System.out.println("URL count: " + count);
-}
-
 @Test
 void shouldCreateShortUrl() {
 
-    UrlRequest request = new UrlRequest();
+     UrlRequest request = new UrlRequest();
+     UrlResponse response = service.createShortURL(request);
 
-    request.setOriginalUrl("https://google.com");
-    request.setSiteName("Google");
+     request.setOriginalUrl("https://google.com");
+     request.setSiteName("Google");
 
+     assertNotNull(response.getId());
+     assertNotNull(response.getShortCode());
 
-    UrlResponse response = service.createShortURL(request);
-
-
-    assertNotNull(response.getId());
-    assertNotNull(response.getShortCode());
-
-
-    URLs savedUrl = repository.findById(response.getId())
+     URLs savedUrl = repository.findById(response.getId())
             .orElseThrow();
 
-
-    assertEquals(
+     assertEquals(
         "https://google.com",
         savedUrl.getOriginalUrl()
     );

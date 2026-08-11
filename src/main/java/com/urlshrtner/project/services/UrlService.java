@@ -10,6 +10,7 @@ import com.urlshrtner.project.dto.UpdateUrlRequest;
 import com.urlshrtner.project.dto.UrlRequest;
 import com.urlshrtner.project.dto.UrlResponse;
 import com.urlshrtner.project.exception.IdNotFoundException;
+import com.urlshrtner.project.exception.UrlExistException;
 import com.urlshrtner.project.exception.UrlNotFoundException;
 import com.urlshrtner.project.mapper.UrlMapper;
 import com.urlshrtner.project.model.URLs;
@@ -28,11 +29,11 @@ public class UrlService {
      String shortCode;
 
      public UrlResponse createShortURL(UrlRequest request ){
-       URLs url = mapper.toEntity(request);
+        URLs url = mapper.toEntity(request);
 
        Optional<URLs> existing = repository.findByOriginalUrl(request.getOriginalUrl());
         if(existing.isPresent()){
-          return  mapper.toResponse(existing.get());
+          throw new UrlExistException("URL already exists");
         }
 
        do{
@@ -45,7 +46,8 @@ public class UrlService {
         url.setClickCount(0L);
         
          URLs savedUrl = repository.save(url);
-      return mapper.toResponse(savedUrl);
+         return mapper.toResponse(savedUrl);
+
      }
 
       public UrlResponse  getShoerCodeById(UUID id){

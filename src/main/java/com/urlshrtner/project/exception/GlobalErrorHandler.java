@@ -31,6 +31,26 @@ public class GlobalErrorHandler {
           
     }
 
+
+public ResponseEntity<ErrorResponse> urlExistException(
+        UrlExistException exception,
+        HttpServletRequest request
+    ){
+        ErrorResponse errorResponse = ErrorResponse.builder()
+        .timestamp(LocalDateTime.now())
+        .status(HttpStatus.CONFLICT.value())
+        .message(exception.getMessage())
+        .requestPath(request.getRequestURI())
+        .build();
+
+        return ResponseEntity
+        .status(HttpStatus.CONFLICT)
+        .body(errorResponse);
+         
+
+    }
+
+
     @ExceptionHandler(IdNotFoundException.class)
     public ResponseEntity<ErrorResponse> idNotFoundException(
         IdNotFoundException exception,
@@ -49,6 +69,7 @@ public class GlobalErrorHandler {
          
 
     }
+
 
 
     
