@@ -30,10 +30,15 @@ public class UrlService {
 
      public UrlResponse createShortURL(UrlRequest request ){
         URLs url = mapper.toEntity(request);
+       
 
        Optional<URLs> existing = repository.findByOriginalUrl(request.getOriginalUrl());
+
         if(existing.isPresent()){
-          throw new UrlExistException("URL already exists");
+           UrlResponse response = mapper.toResponse(existing.get());
+           response.setExists(true);
+           response.setMessage("URL already exists");
+           return response;
         }
 
        do{
@@ -44,9 +49,15 @@ public class UrlService {
         url.setSiteName(request.getSiteName());
         url.setDeleted(false);
         url.setClickCount(0L);
-        
-         URLs savedUrl = repository.save(url);
-         return mapper.toResponse(savedUrl);
+
+
+
+         URLs saveUrl = repository.save(url);
+        UrlResponse response = mapper.toResponse(saveUrl);
+        response.setExists(false);
+        response.setExists(false);
+response.setMessage("Short URL created successfully.");
+        return response;
 
      }
 

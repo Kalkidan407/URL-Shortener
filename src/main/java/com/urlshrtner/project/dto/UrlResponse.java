@@ -20,6 +20,7 @@ public class UrlResponse {
     private java.time.Instant createdAt;
     private String siteName;
     private boolean exists ;
+    private String message;
     
    
     
