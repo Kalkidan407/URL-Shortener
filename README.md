@@ -138,15 +138,7 @@ src/
     └── java/com/urlshrtner/project/
 ```
 
-## 🔮 Future Improvements
 
-* Authentication and authorization
-* Rate limiting
-* URL analytics
-* Pagination and filtering
-* Caching
-* Custom short-code **support**
-* CI/CD pipeline
 
 ## 👨‍💻 Author
 
