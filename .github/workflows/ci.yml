@@ -26,5 +26,5 @@ jobs:
           cache: maven
 
       - name: Build and run tests
-        run: mvn clean verifyx
+        run: mvn clean verify
 
