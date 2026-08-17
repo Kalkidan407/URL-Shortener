@@ -30,16 +30,19 @@ class UrlServiceIntegrationTest {
 void shouldCreateShortUrl() {
 
      UrlRequest request = new UrlRequest();
-     UrlResponse response = service.createShortURL(request);
+     
 
      request.setOriginalUrl("https://google.com");
      request.setSiteName("Google");
+
+     UrlResponse response = service.createShortURL(request);
 
      assertNotNull(response.getId());
      assertNotNull(response.getShortCode());
 
      URLs savedUrl = repository.findById(response.getId())
             .orElseThrow();
+          
 
      assertEquals(
         "https://google.com",

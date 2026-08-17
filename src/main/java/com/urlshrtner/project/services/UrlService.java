@@ -10,7 +10,7 @@ import com.urlshrtner.project.dto.UpdateUrlRequest;
 import com.urlshrtner.project.dto.UrlRequest;
 import com.urlshrtner.project.dto.UrlResponse;
 import com.urlshrtner.project.exception.IdNotFoundException;
-import com.urlshrtner.project.exception.UrlExistException;
+
 import com.urlshrtner.project.exception.UrlNotFoundException;
 import com.urlshrtner.project.mapper.UrlMapper;
 import com.urlshrtner.project.model.URLs;
@@ -51,7 +51,6 @@ public class UrlService {
 
          URLs saveUrl = repository.save(url);
         UrlResponse response = mapper.toResponse(saveUrl);
-        response.setExists(false);
         response.setExists(false);
          response.setMessage("Short URL created successfully.");
         return response;
