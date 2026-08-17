@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.urlshrtner.project.dto.UpdateUrlRequest;
 import com.urlshrtner.project.dto.UrlRequest;
 import com.urlshrtner.project.dto.UrlResponse;
-import com.urlshrtner.project.model.URLs;
+
 import com.urlshrtner.project.services.UrlService;
 
 import lombok.RequiredArgsConstructor;

@@ -31,7 +31,6 @@ public class UrlService {
      public UrlResponse createShortURL(UrlRequest request ){
         URLs url = mapper.toEntity(request);
        
-
        Optional<URLs> existing = repository.findByOriginalUrl(request.getOriginalUrl());
 
         if(existing.isPresent()){
@@ -50,13 +49,11 @@ public class UrlService {
         url.setDeleted(false);
         url.setClickCount(0L);
 
-
-
          URLs saveUrl = repository.save(url);
         UrlResponse response = mapper.toResponse(saveUrl);
         response.setExists(false);
         response.setExists(false);
-response.setMessage("Short URL created successfully.");
+         response.setMessage("Short URL created successfully.");
         return response;
 
      }
