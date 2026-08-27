@@ -17,7 +17,7 @@ public class CorsConfig {
                 registry.addMapping("/**")
                         .allowedOrigins(
                                 "http://localhost:3000",
-                                "https://url-shortner-1l2n.vercel.app"
+                                "https://url-shortner-v1sk.vercel.app"
                         )
                         .allowedMethods(
                                 "GET",
