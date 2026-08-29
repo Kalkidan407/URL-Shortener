@@ -1,7 +1,15 @@
 
 # 🔗 URL Shortener API
 
+
+
 A RESTful URL Shortener API built with Java and Spring Boot. The project focuses on clean backend architecture, database management, API design, testing, and containerized deployment.
+
+## Frontend
+   https://url-shortner-r3v7.vercel.app/
+
+## Swagger-doc
+ https://url-shortener-a697.onrender.com/swagger-ui/index.html#/   
 
 ## 🚀 Features
 
